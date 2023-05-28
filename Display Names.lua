@@ -1,6 +1,6 @@
 --[[ Made by eyesore (me) ]]
 -- Have Display Names and Usernames, Great right? Yeah ik.
-
+-- loadstring(game:HttpGet("https://raw.githubusercontent.com/ZZV-4/script-list/main/Display%20Names.lua", true))()
 --//Initialization\\--
 
 for i,lplr in pairs(game:GetService("Players"):GetPlayers()) do
