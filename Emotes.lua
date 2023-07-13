@@ -1,10 +1,23 @@
---keybind to open is comma
---made by Gi#7331
+--- Keybind to open for pc is "comma" -> " , "
+-- Made by Gi#7331
+
+game:GetService("StarterGui"):SetCore("SendNotification",{
+                Title = "Executed",
+                Text = "test notification",
+                 Duration = 15})
+
+if game:GetService("CoreGui"):FindFirstChild("Emotes") then
+    game:GetService("CoreGui"):FindFirstChild("Emotes"):Destroy()
+end
+
+wait(1)
 
 local ContextActionService = game:GetService("ContextActionService")
 local HttpService = game:GetService("HttpService")
 local GuiService = game:GetService("GuiService")
 local CoreGui = game:GetService("CoreGui")
+local Open = Instance.new("TextButton")
+UICorner = Instance.new("UICorner")
 local MarketplaceService = game:GetService("MarketplaceService")
 local Players = game:GetService("Players")
 local StarterGui = game:GetService("StarterGui")
@@ -67,6 +80,34 @@ BackFrame.SizeConstraint = Enum.SizeConstraint.RelativeYY
 BackFrame.BackgroundTransparency = 1
 BackFrame.BorderSizePixel = 0
 BackFrame.Parent = ScreenGui
+
+Open.Name = "Open"
+Open.Parent = ScreenGui
+Open.Draggable = true
+Open.Size = UDim2.new(0.05,0,0.114,0)
+Open.Position = UDim2.new(0.05, 0, 0.25, 0)
+Open.Text = "Close"
+Open.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+Open.TextColor3 = Color3.fromRGB(255, 255, 255)
+Open.TextScaled = true
+Open.TextSize = 20
+Open.Visible = true
+Open.BackgroundTransparency = .5
+Open.MouseButton1Up:Connect(function()
+if Open.Text == "Open" then
+		Open.Text = "Close"
+		BackFrame.Visible = true
+else
+		if Open.Text == "Close" then
+			Open.Text = "Open"
+			BackFrame.Visible = false
+		end
+end
+end)
+
+UICorner.Name = "UICorner"
+UICorner.Parent = Open
+UICorner.CornerRadius = UDim.new(1, 0)
 
 local EmoteName = Instance.new("TextLabel")
 EmoteName.Name = "EmoteName"
@@ -158,6 +199,7 @@ local function createsort(order, text, sort)
 	CreatedSort.Parent = SortFrame
 	CreatedSort.MouseButton1Click:Connect(function()
 		SortFrame.Visible = false
+		Open.Text = "Open"
 		CurrentSort = sort
 		SortEmotes()
 	end)
@@ -183,6 +225,7 @@ SortButton.BackgroundTransparency = 0.3
 SortButton.Text = "Sort"
 SortButton.MouseButton1Click:Connect(function()
 	SortFrame.Visible = not SortFrame.Visible
+	Open.Text = "Open"
 end)
 Corner:Clone().Parent = SortButton
 SortButton.Parent = BackFrame
@@ -245,6 +288,7 @@ SearchBar.Parent = BackFrame
 local function openemotes(name, state, input)
 	if state == Enum.UserInputState.Begin then
 		BackFrame.Visible = not BackFrame.Visible
+		Open.Text = "Open"
 	end
 end
 
@@ -267,6 +311,7 @@ ScreenGui:GetPropertyChangedSignal("Enabled"):Connect(function()
 			if not processed then
 				if input.UserInputType == Enum.UserInputType.MouseButton1 then
 					BackFrame.Visible = false
+					Open.Text = "Open"
 				end
 			end
 		end)
@@ -278,11 +323,13 @@ end)
 GuiService.EmotesMenuOpenChanged:Connect(function(isopen)
 	if isopen then
 		BackFrame.Visible = false
+		Open.Text = "Open"
 	end
 end)
 
 GuiService.MenuOpened:Connect(function()
 	BackFrame.Visible = false
+	Open.Text = "Open"
 end)
 
 if not game:IsLoaded() then
@@ -320,6 +367,7 @@ local LocalPlayer = Players.LocalPlayer
 
 local function PlayEmote(name: string, id: IntValue)
 	BackFrame.Visible = false
+	Open.Text = "Open"
 	SearchBar.Text = ""
 	local Humanoid = LocalPlayer.Character:FindFirstChildOfClass("Humanoid")
 	local Description = Humanoid and Humanoid:FindFirstChildOfClass("HumanoidDescription")
@@ -574,34 +622,14 @@ if LocalPlayer.Character then
 	CharacterAdded(LocalPlayer.Character)
 end
 LocalPlayer.CharacterAdded:Connect(CharacterAdded)
+
 wait(1)
+
 game.CoreGui.Emotes.Enabled = true
 
-local Open = Instance.new("TextButton")
-UICorner = Instance.new("UICorner")
-
-Open.Name = "Open"
-Open.Parent = game.CoreGui.Emotes
-Open.Draggable = true
-Open.Size = UDim2.new(0.05, 0, 0.1, 0)
-Open.Position = UDim2.new(0.05, 0, 0.25, 0)
-Open.Text = "Close"
-Open.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
-Open.TextColor3 = Color3.fromRGB(255, 255, 255)
-Open.TextScaled = true
-Open.TextSize = 20
-Open.Visible = true
-Open.BackgroundTransparency = .5
-Open.MouseButton1Up:Connect(function()
-if Open.Text == "Open" then
-Open.Text = "Close"
-game.CoreGui.Emotes.Frame.Visible = true
-else
-if Open.Text == "Close" then
-Open.Text = "Open"
-game.CoreGui.Emotes.Frame.Visible = false
-end
-end
-end)
+game:GetService("StarterGui"):SetCore("SendNotification",{
+                Title = "Loaded",
+                Text = "Modified",
+                 Duration = 10})
 
 game.Players.LocalPlayer.PlayerGui.ContextActionGui:Destroy()
