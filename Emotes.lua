@@ -292,6 +292,14 @@ local function openemotes(name, state, input)
 	end
 end
 
+ContextActionService:BindCoreActionAtPriority(
+	"Emote Menu",
+	openemotes,
+	true,
+	2001,
+	Enum.KeyCode.Comma
+)
+
 local inputconnect
 ScreenGui:GetPropertyChangedSignal("Enabled"):Connect(function()
 	if BackFrame.Visible == false then
