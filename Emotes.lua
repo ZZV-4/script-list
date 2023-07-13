@@ -1,4 +1,4 @@
---- Keybind to open for pc is "comma" -> " , "
+-- loadstring(game:HttpGet("https://raw.githubusercontent.com/ZZV-4/script-list/main/Emotes.lua"))()
 -- Made by Gi#7331
 
 game:GetService("StarterGui"):SetCore("SendNotification",{
