@@ -83,7 +83,7 @@ BackFrame.Parent = ScreenGui
 
 Open.Name = "Open"
 Open.Parent = ScreenGui
-Open.Draggable = true
+Open.Draggable = false
 Open.Size = UDim2.new(0.05,0,0.114,0)
 Open.Position = UDim2.new(0.05, 0, 0.25, 0)
 Open.Text = "Close"
